@@ -1,0 +1,24 @@
+:root {
+  font-family: Arial, sans-serif;
+  background-color: rgb(3, 3, 59);
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+.App {
+  text-align: center;
+  padding-top: 5px;
+  padding: 20px;
+  background-color: rgb(3, 3, 59);
+  color: white;
+  padding: 20px 50px;
+}
+.dashboard1 {
+  margin-top: 20px;
+  background-image: url('./assets/bg-today-large.svg');
+  background-size: cover;
+  color: white;
+  width: 760px;
+  height: 220px;
+  border-radius: 10px;
+}
