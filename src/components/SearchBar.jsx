@@ -1,10 +1,30 @@
-function SearchBar() {
-  return (
-    <div>
-        <h1 style={{ fontSize: '35px', marginBottom: '30px' }}>How's the sky looking today?</h1>
-      <input type="text" placeholder="Search weather..." style={{ padding: '9px 150px', borderRadius: '5px', border: 'none', marginRight: '10px',backgroundColor: '#323c46ff', color: 'white' }} />
-      <button style={{ padding: '7px 20px', borderRadius: '5px', border: 'none', backgroundColor: '#007BFF', color: 'white' }}>Search</button>
-    </div>
-  );
+import { useState } from 'react';
+
+function SearchBar({ onSearch }) {
+    const [searchInput, setSearchInput] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (searchInput.trim()) {
+            onSearch(searchInput.trim());
+        }
+    };
+
+    return (
+        <div className="search-section">
+            <h1 className="search-title">How's the sky looking today?</h1>
+            <form className="search-container" onSubmit={handleSubmit}>
+                <input 
+                    type="text" 
+                    placeholder="Search weather..." 
+                    className="search-input"
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                />
+                <button type="submit" className="search-button">Search</button>
+            </form>
+        </div>
+    );
 }
+
 export default SearchBar;

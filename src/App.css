@@ -1,24 +1,430 @@
+/* ===== CSS VARIABLES ===== */
 :root {
-  font-family: Arial, sans-serif;
-  background-color: rgb(3, 3, 59);
+  /* Colors */
+  --primary-bg: rgb(3, 3, 59);
+  --card-bg: #27283dff;
+  --card-bg-secondary: #2e2d51ff;
+  --navbar-bg: #212b34ff;
+  --search-bg: #323c46ff;
+  --button-primary: #007BFF;
+  --text-primary: white;
+  
+  /* Spacing */
+  --spacing-xs: 5px;
+  --spacing-sm: 10px;
+  --spacing-md: 15px;
+  --spacing-lg: 20px;
+  --spacing-xl: 25px;
+  --spacing-2xl: 30px;
+  
+  /* Border Radius */
+  --radius-sm: 5px;
+  --radius-md: 10px;
+  
+  /* Font Sizes */
+  --font-xs: 15px;
+  --font-sm: 18px;
+  --font-md: 22px;
+  --font-lg: 30px;
+  --font-xl: 35px;
+  --font-2xl: 50px;
+}
+
+/* ===== BASE STYLES ===== */
+* {
   margin: 0;
   padding: 0;
-  color: white;
+  box-sizing: border-box;
 }
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
+}
+
 .App {
   text-align: center;
-  padding-top: 5px;
-  padding: 20px;
-  background-color: rgb(3, 3, 59);
-  color: white;
-  padding: 20px 50px;
+  padding: var(--spacing-lg);
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
+  max-width: 1400px;
+  margin: 0 auto;
 }
+
+/* ===== NAVBAR ===== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.navbar img {
+  max-width: 150px;
+  height: auto;
+}
+
+.unit-select {
+  display: flex;
+  gap: var(--spacing-sm);
+  background-color: var(--navbar-bg);
+  color: var(--text-primary);
+  padding: 7px 5px;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* ===== SEARCH BAR ===== */
+.search-section {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.error-message {
+  color: #ff6b6b;
+  background-color: rgba(255, 107, 107, 0.1);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-sm);
+  margin: var(--spacing-lg) 0;
+}
+
+.search-title {
+  font-size: var(--font-xl);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.search-container {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  padding: 9px 20px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background-color: var(--search-bg);
+  color: var(--text-primary);
+  font-size: 14px;
+  flex: 1;
+  min-width: 200px;
+  max-width: 400px;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-button {
+  padding: 7px 20px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background-color: var(--button-primary);
+  color: var(--text-primary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-button:hover {
+  background-color: #0056b3;
+}
+
+/* ===== DASHBOARD ===== */
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-sm);
+}
+
+/* ===== MAIN WEATHER CARD ===== */
 .dashboard1 {
-  margin-top: 20px;
+  margin-top: var(--spacing-lg);
   background-image: url('./assets/bg-today-large.svg');
   background-size: cover;
-  color: white;
-  width: 760px;
-  height: 220px;
-  border-radius: 10px;
+  background-position: center;
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  min-height: 250px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+}
+
+.location-info h1 {
+  font-size: var(--font-lg);
+  margin-bottom: var(--spacing-xs);
+}
+
+.location-info h2 {
+  font-size: var(--font-xs);
+  font-weight: normal;
+  opacity: 0.9;
+}
+
+.weather-display {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.weather-display img {
+  width: 80px;
+  height: 80px;
+}
+
+.temperature {
+  font-size: var(--font-2xl);
+}
+
+/* ===== WEATHER STATS ===== */
+.dashboard2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.stat-card {
+  background-color: var(--card-bg);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  text-align: left;
+}
+
+.stat-card h1 {
+  font-size: var(--font-xs);
+  font-weight: normal;
+  opacity: 0.8;
+  margin-bottom: var(--spacing-md);
+}
+
+.stat-card h2 {
+  font-size: var(--font-sm);
+  font-weight: bold;
+}
+
+/* ===== DAILY FORECAST ===== */
+.daily-forecast-section {
+  margin-top: var(--spacing-xl);
+}
+
+.daily-forecast-title {
+  font-size: var(--font-md);
+  margin-bottom: var(--spacing-lg);
+  text-align: left;
+}
+
+.daily-forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--spacing-sm);
+  max-width: 100%;
+}
+
+.forecast-card {
+  background-color: var(--card-bg);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.forecast-card h1 {
+  font-size: var(--font-xs);
+  margin-bottom: var(--spacing-sm);
+}
+
+.forecast-card img {
+  width: 50px;
+  height: 50px;
+  margin: var(--spacing-sm) 0;
+}
+
+.forecast-temps {
+  display: flex;
+  justify-content: space-around;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.forecast-temps h3 {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+/* ===== HOURLY FORECAST ===== */
+.hourly-forecast-container {
+  background-color: var(--card-bg);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  margin-top: var(--spacing-lg);
+}
+
+.hourly-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.hourly-header h2 {
+  font-size: var(--font-xs);
+  margin: 0;
+}
+
+.day-select {
+  background-color: var(--card-bg-secondary);
+  color: var(--text-primary);
+  padding: 7px 15px;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+}
+
+.hourly-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.hourly-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--card-bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm);
+}
+
+.hourly-time {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.hourly-time img {
+  width: 40px;
+  height: 40px;
+}
+
+.hourly-time h1 {
+  font-size: var(--font-xs);
+  margin: 0;
+}
+
+.hourly-temp {
+  font-size: var(--font-xs);
+  margin: 0;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Mobile Phones (320px - 480px) */
+@media (max-width: 480px) {
+  .App {
+    padding: var(--spacing-sm);
+  }
+  
+  .search-title {
+    font-size: 24px;
+  }
+  
+  .search-input {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .dashboard1 {
+    padding: var(--spacing-md);
+    min-height: auto;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .location-info h1 {
+    font-size: 24px;
+  }
+  
+  .temperature {
+    font-size: 40px;
+  }
+  
+  .weather-display img {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .dashboard2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .daily-forecast-grid {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    overflow-x: auto;
+  }
+  
+  .forecast-card {
+    padding: var(--spacing-sm);
+  }
+  
+  .forecast-card img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Tablets (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .dashboard2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .daily-forecast-grid {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  }
+}
+
+/* Small Desktops (769px - 1024px) */
+@media (min-width: 769px) {
+  .dashboard {
+    grid-template-columns: 2fr 1fr;
+  }
+  
+  .dashboard2 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .daily-forecast-grid {
+    grid-template-columns: repeat(7, 1fr);
+  }
+  
+  .hourly-forecast-container {
+    margin-top: 0;
+  }
+}
+
+/* Large Desktops (1025px+) */
+@media (min-width: 1025px) {
+  .App {
+    padding: var(--spacing-lg) 50px;
+  }
+  
+  .dashboard1 {
+    max-width: 100%;
+  }
+  
+  .stat-card {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
 }

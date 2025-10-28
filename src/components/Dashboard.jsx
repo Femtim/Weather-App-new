@@ -1,49 +1,73 @@
 import React from 'react';
-import DailyForecast from './DailyForcast';
-import HourlyForecast from './HourlyForcast';
-import sunny from '../assets/images/icon-sunny.webp'; // add this at top of file
+import DailyForecast from './DailyForecast.jsx';
+import HourlyForecast from './HourlyForecast.jsx';
 
-function Dashboard() {
+function Dashboard({ weatherData, units }) {
+    const current = weatherData.current;
+    const tempUnit = units === 'metric' ? '°C' : '°F';
+    const speedUnit = units === 'metric' ? 'km/h' : 'mph';
+
+    // Get weather icon
+    const getWeatherIcon = (iconCode) => {
+        return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+    };
+
+    // Format date
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp * 1000);
+        return date.toLocaleDateString('en-US', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+    };
+
     return (
-        <>
-            <div className="dashboard" style={{ display: 'flex', gap: '25px',  justifyContent: 'space-between', marginTop: '10px',  }}>
-                <div>
-                    <div  >
-                        <div className="dashboard1" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px', }}>
-                            <div>
-                                <h1 className='location' id='location' style={{ margin: 0, fontSize: '30px', }}>Berlin, Germany</h1>
-                                <h2 className='date' id='date' style={{ margin: 0, fontSize: '15px', }}>Tuesday, August 10, 2023</h2>
-                            </div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginTop: '10px' }}>
-                                <img src={sunny} alt="Weather Icon" style={{ width: '80px', height: '80px' }} />
-                                <h1 className='temperature' id='temperature' style={{ margin: 0, fontSize: '50px', }}>68°</h1>
-                            </div>
-                        </div>
-                        <div className="dashboard2" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'left', color: 'white', borderRadius: '10px', marginTop: '20px',  }}>
-                            <div style={{ backgroundColor: '#27283dff', padding: '15px', paddingRight: '60px', borderRadius: '10px', textAlign: 'start', justifyContent: 'left', alignItems: 'left' }}>
-                                <h1 className='FeelsLike' id='FeelsLike' style={{ margin: 0, fontSize: '15px', }}>Feels Like </h1>
-                                <h2 style={{ margin: 0, fontSize: '18px',marginTop: '15px' }}>64°C</h2>
-                            </div>
-                            <div style={{ backgroundColor: '#27283dff', padding: '15px', paddingRight: '60px', borderRadius: '10px', textAlign: 'start', justifyContent: 'left', alignItems: 'left' }}>
-                                <h1 className='Humidity' id='Humidity' style={{ margin: 0, fontSize: '15px', }}>Humidity</h1>
-                                <h2 style={{ margin: 0, fontSize: '18px',marginTop: '15px' }}>46%</h2>
-                            </div>
-                            <div style={{ backgroundColor: '#27283dff', padding: '15px', paddingRight: '60px', borderRadius: '10px', textAlign: 'start', justifyContent: 'left', alignItems: 'left' }}>
-                                <h1 className='Wind' id='Wind' style={{ margin: 0, fontSize: '15px', }}>Wind</h1>
-                                <h2 style={{ margin: 0, fontSize: '18px',marginTop: '15px' }}>9 km/h</h2>
-                            </div>
-                            <div style={{ backgroundColor: '#27283dff', padding: '15px', paddingRight: '60px', borderRadius: '10px', textAlign: 'start', justifyContent: 'left', alignItems: 'left' }}>
-                                <h1 className='Precipitation' id='Precipitation' style={{ margin: 0, fontSize: '15px', }}>Precipitation</h1>
-                                <h2 style={{ margin: 0, fontSize: '18px',marginTop: '15px' }}>0 in</h2>
-                            </div>
-                        </div>
-
+        <div className="dashboard">
+            <div>
+                <div className="dashboard1">
+                    <div className="location-info">
+                        <h1 className="location">
+                            {weatherData.cityName}, {weatherData.country}
+                        </h1>
+                        <h2 className="date">{formatDate(current.dt)}</h2>
                     </div>
-                    <DailyForecast />
+                    <div className="weather-display">
+                        <img 
+                            src={getWeatherIcon(current.weather[0].icon)} 
+                            alt={current.weather[0].description}
+                        />
+                        <h1 className="temperature">
+                            {Math.round(current.main.temp)}{tempUnit}
+                        </h1>
+                    </div>
                 </div>
-                <HourlyForecast />
+                
+                <div className="dashboard2">
+                    <div className="stat-card">
+                        <h1>Feels Like</h1>
+                        <h2>{Math.round(current.main.feels_like)}{tempUnit}</h2>
+                    </div>
+                    <div className="stat-card">
+                        <h1>Humidity</h1>
+                        <h2>{current.main.humidity}%</h2>
+                    </div>
+                    <div className="stat-card">
+                        <h1>Wind</h1>
+                        <h2>{Math.round(current.wind.speed)} {speedUnit}</h2>
+                    </div>
+                    <div className="stat-card">
+                        <h1>Pressure</h1>
+                        <h2>{current.main.pressure} hPa</h2>
+                    </div>
+                </div>
+
+                <DailyForecast forecast={weatherData.forecast} units={units} />
             </div>
-        </>
+            <HourlyForecast forecast={weatherData.forecast} units={units} />
+        </div>
     );
 }
+
 export default Dashboard;
