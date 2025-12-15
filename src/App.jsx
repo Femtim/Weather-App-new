@@ -11,7 +11,7 @@ function App() {
   const [city, setCity] = useState('Berlin')
   const [units, setUnits] = useState('metric') // 'metric' or 'imperial'
 
-  // Replace with your OpenWeatherMap API key
+  
   const API_KEY = 'af37647eae60c74c42c6df82cb20ecd6'
 
   const fetchWeather = async (cityName) => {
